@@ -349,6 +349,7 @@
           </div>
         </div>
       </div>
+
     </main>
     
     <!-- Charity & Student Section -->
@@ -481,6 +482,7 @@ import { Monitor, Platform, Iphone, Cellphone, TrendCharts, DataAnalysis, Finish
   @apply ml-auto px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 text-xs font-semibold border border-yellow-100;
 }
 
+
 .download-tag {
   @apply px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-blue-100 backdrop-blur;
 }
@@ -504,4 +506,5 @@ import { Monitor, Platform, Iphone, Cellphone, TrendCharts, DataAnalysis, Finish
 .faq-item__answer {
   @apply text-sm text-gray-600 leading-relaxed;
 }
+
 </style>
