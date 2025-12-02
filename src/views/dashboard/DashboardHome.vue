@@ -23,19 +23,32 @@
     </div>
 
     <!-- Header / Greeting -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-800">
-                {{ greeting }}, 
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-blue-500">Dashboard</p>
+            <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-2">
+                {{ greeting }},
                 <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     {{ userStore.userInfo.email?.split('@')[0] || 'User' }}
                 </span>
+                <el-tag type="success" size="small" effect="light" class="!rounded-full !border-none">在线</el-tag>
             </h1>
-            <p class="text-gray-500 mt-2">欢迎回到永连加速器，祝您今天过得愉快！</p>
+            <p class="text-gray-500">欢迎回到永连加速器，保持订阅健康即可畅享极速网络。</p>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-500">
+                <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full border border-blue-100" v-if="expireDaysLeft !== null">剩余 {{ expireDaysLeft }} 天到期</span>
+                <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100" v-if="userStore.userInfo.resetDay">流量重置倒计时 {{ userStore.userInfo.resetDay }} 天</span>
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full border border-gray-200">{{ new Date().toLocaleDateString() }}</span>
+            </div>
         </div>
-        <div class="text-right hidden md:block">
-            <p class="text-sm text-gray-400">上次登录时间</p>
-            <p class="font-mono text-gray-600">{{ new Date().toLocaleDateString() }}</p>
+        <div class="hidden md:flex items-center gap-3 bg-white px-4 py-3 rounded-2xl border border-gray-100 shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                <el-icon><Lightning /></el-icon>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">快捷入口</p>
+                <p class="font-semibold text-gray-800">复制订阅或一键导入</p>
+            </div>
+            <el-button size="small" type="primary" plain class="!rounded-lg" @click="copyLink">复制</el-button>
         </div>
     </div>
 
@@ -96,21 +109,65 @@
                      </span>
                      <span class="text-gray-600 font-bold">流量使用</span>
                  </div>
-                 <div class="text-2xl font-bold text-gray-800">
-                     {{ userStore.userInfo.trafficUsed }} <span class="text-sm font-normal text-gray-500">GB</span>
+                 <div class="text-2xl font-bold text-gray-800 flex items-end gap-2">
+                     <span>{{ userStore.userInfo.trafficUsed }}</span> <span class="text-sm font-normal text-gray-500">/ {{ userStore.userInfo.trafficTotal }} GB</span>
                  </div>
-                 <div class="text-xs text-gray-400 mt-1">
-                     总计: {{ userStore.userInfo.trafficTotal }} GB
-                 </div>
-                 <div class="mt-3 text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded w-fit border border-emerald-100" v-if="userStore.userInfo.resetDay">
-                     距离重置还有 {{ userStore.userInfo.resetDay }} 天
+                 <div class="flex items-center gap-2 text-xs mt-2">
+                    <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200" v-if="trafficLevel === 'ok'">状态良好</span>
+                    <span class="px-2 py-1 rounded-full bg-amber-100 text-amber-700 border border-amber-200" v-else-if="trafficLevel === 'warn'">即将用尽</span>
+                    <span class="px-2 py-1 rounded-full bg-rose-100 text-rose-700 border border-rose-200" v-else>请及时续费</span>
+                    <span class="text-gray-400" v-if="userStore.userInfo.resetDay">· {{ userStore.userInfo.resetDay }} 天后重置</span>
                  </div>
              </div>
              <div class="relative">
-                 <el-progress type="circle" :percentage="trafficPercentage" :width="100" :stroke-width="10" :color="colors" />
+                 <el-progress type="circle" :percentage="trafficPercentage" :width="110" :stroke-width="10" :color="colors" />
              </div>
          </div>
       </el-card>
+    </div>
+
+    <!-- Status snapshot -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm space-y-3">
+            <div class="flex items-center gap-2 text-gray-700 font-semibold">
+                <el-icon class="text-blue-500"><Document /></el-icon> 订阅信息
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+                <span>订阅链接</span>
+                <button class="text-blue-600 hover:underline" @click="copyLink">复制</button>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+                <span>套餐到期</span>
+                <span class="text-gray-800 font-medium">{{ userStore.userInfo.expireDate || '—' }}</span>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+                <span>到期提醒</span>
+                <el-tag size="small" :type="expireTag.type" effect="light" class="!rounded-full">{{ expireTag.text }}</el-tag>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm space-y-3">
+            <div class="flex items-center gap-2 text-gray-700 font-semibold">
+                <el-icon class="text-emerald-500"><Link /></el-icon> 常用操作
+            </div>
+            <ul class="space-y-2 text-sm text-gray-600">
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> 建议使用自动导入（Clash / Shadowrocket）保持配置最新</li>
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400"></span> 切换节点后若无网，可尝试清空系统代理或重启客户端</li>
+                <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span> 订阅异常时可扫描二维码或手动复制链接重新添加</li>
+            </ul>
+        </div>
+        <div class="bg-gradient-to-br from-indigo-50 to-blue-100 rounded-2xl p-4 border border-blue-100 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2 text-gray-800 font-semibold">
+                    <el-icon class="text-indigo-500"><ChatRound /></el-icon> 支持优先级
+                </div>
+                <el-tag size="small" type="primary" effect="light" class="!rounded-full">快速响应</el-tag>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed">遇到登录或连接问题，可在工单中心选择「连接异常」「订阅失效」模板，平均响应时间 <strong>10 分钟</strong>。</p>
+            <div class="flex gap-2 mt-3">
+                <el-button size="small" type="primary" plain class="!rounded-lg" @click="$router.push('/dashboard/tickets')">提交工单</el-button>
+                <el-button size="small" class="!rounded-lg" @click="goToTutorial('99')" plain>查看常见问题</el-button>
+            </div>
+        </div>
     </div>
 
     <!-- Client Tutorials Section -->
@@ -127,6 +184,7 @@
                     <div class="font-bold text-gray-700">Windows</div>
                     <div class="text-xs text-gray-400 mt-1">查看教程</div>
                 </div>
+                <el-tag size="small" type="primary" effect="light" class="!rounded-full ml-auto">自动导入</el-tag>
             </div>
 
             <div @click="goToTutorial('3')" class="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center gap-4 hover:bg-green-50/50 group">
@@ -135,8 +193,9 @@
                 </div>
                 <div>
                     <div class="font-bold text-gray-700">Android</div>
-                    <div class="text-xs text-gray-400 mt-1">查看教程</div>
+                    <div class="text-xs text-gray-400 mt-1">Clash / v2rayNG</div>
                 </div>
+                <el-tag size="small" type="success" effect="light" class="!rounded-full ml-auto">速连</el-tag>
             </div>
 
             <div @click="goToTutorial('2')" class="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center gap-4 hover:bg-gray-100/50 group">
@@ -145,8 +204,9 @@
                 </div>
                 <div>
                     <div class="font-bold text-gray-700">iOS</div>
-                    <div class="text-xs text-gray-400 mt-1">查看教程</div>
+                    <div class="text-xs text-gray-400 mt-1">Shadowrocket</div>
                 </div>
+                <el-tag size="small" type="warning" effect="light" class="!rounded-full ml-auto">Apple ID</el-tag>
             </div>
 
             <div @click="goToTutorial('4')" class="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-100 flex items-center gap-4 hover:bg-gray-100/50 group">
@@ -155,8 +215,9 @@
                 </div>
                 <div>
                     <div class="font-bold text-gray-700">macOS</div>
-                    <div class="text-xs text-gray-400 mt-1">查看教程</div>
+                    <div class="text-xs text-gray-400 mt-1">ClashX / Verge</div>
                 </div>
+                <el-tag size="small" type="info" effect="light" class="!rounded-full ml-auto">桌面</el-tag>
             </div>
         </div>
     </div>
@@ -216,10 +277,11 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../../stores/user';
-import { 
-    Trophy, Wallet, CopyDocument, Iphone, Monitor, 
+import {
+    Trophy, Wallet, CopyDocument, Iphone, Monitor,
     FullScreen, DataLine, Lightning, Calendar,
-    Platform, Cellphone, Reading, BellFilled, ArrowRight
+    Platform, Cellphone, Reading, BellFilled, ArrowRight,
+    Document, Link, ChatRound
 } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import QRCode from 'qrcode';
@@ -248,6 +310,20 @@ const greeting = computed(() => {
     if (hour < 14) return '中午好';
     if (hour < 18) return '下午好';
     return '晚上好';
+});
+
+const expireDaysLeft = computed(() => {
+    const expire = userStore.userInfo.expireDate;
+    if (!expire) return null;
+    const diff = new Date(expire).getTime() - Date.now();
+    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+});
+
+const expireTag = computed((): { type: 'primary' | 'success' | 'warning' | 'info' | 'danger'; text: string } => {
+    if (expireDaysLeft.value === null) return { type: 'info', text: '待同步' };
+    if (expireDaysLeft.value <= 3) return { type: 'danger', text: '尽快续费' };
+    if (expireDaysLeft.value <= 7) return { type: 'warning', text: '一周内到期' };
+    return { type: 'success', text: '状态良好' };
 });
 
 const loadNotice = async () => {
@@ -286,6 +362,12 @@ const trafficPercentage = computed(() => {
     if (!userStore.userInfo.trafficTotal || userStore.userInfo.trafficTotal === 0) return 0;
     const p = Math.round((userStore.userInfo.trafficUsed / userStore.userInfo.trafficTotal) * 100);
     return Math.min(100, Math.max(0, p));
+});
+
+const trafficLevel = computed(() => {
+    if (trafficPercentage.value >= 90) return 'danger';
+    if (trafficPercentage.value >= 70) return 'warn';
+    return 'ok';
 });
 
 const colors = [

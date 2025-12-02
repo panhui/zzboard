@@ -258,6 +258,98 @@
           </div>
         </div>
       </div>
+
+      <!-- Platform Download -->
+      <div class="max-w-6xl mx-auto mt-24 px-4">
+        <div class="rounded-[2rem] bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 text-white p-10 md:p-14 shadow-lg relative overflow-hidden">
+          <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_left,_#60a5fa,_transparent_45%),_radial-gradient(circle_at_bottom_right,_#a855f7,_transparent_35%)]"></div>
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-10">
+            <div class="space-y-4 text-left max-w-xl">
+              <p class="inline-flex items-center gap-2 text-sm font-semibold text-blue-100">
+                <span class="w-2 h-2 rounded-full bg-blue-300"></span>
+                全平台随时开跑
+              </p>
+              <h2 class="text-3xl md:text-4xl font-bold leading-tight">一个账号，畅连所有设备</h2>
+              <p class="text-blue-100 text-lg leading-relaxed">覆盖桌面、移动与路由器，支持订阅导入与分流模式。无论在家办公还是外出旅行，秒连低延迟线路。</p>
+              <div class="flex flex-wrap gap-3">
+                <span class="download-tag">AES-256 / TLS 1.3</span>
+                <span class="download-tag">原生 IP 解锁</span>
+                <span class="download-tag">自动分流</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:max-w-xl">
+              <div class="download-card">
+                <div class="download-card__icon bg-blue-500/20 text-blue-200">
+                  <el-icon><Monitor /></el-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm text-blue-100/80">桌面端</p>
+                  <p class="text-lg font-semibold">Windows / macOS</p>
+                </div>
+                <el-button type="primary" plain size="small" class="!border-white/30 !text-white !px-4" @click="$router.push('/download')">下载</el-button>
+              </div>
+
+              <div class="download-card">
+                <div class="download-card__icon bg-indigo-500/20 text-indigo-200">
+                  <el-icon><Iphone /></el-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm text-blue-100/80">移动端</p>
+                  <p class="text-lg font-semibold">iOS / Android</p>
+                </div>
+                <el-button type="primary" plain size="small" class="!border-white/30 !text-white !px-4" @click="$router.push('/download')">下载</el-button>
+              </div>
+
+              <div class="download-card">
+                <div class="download-card__icon bg-emerald-500/20 text-emerald-200">
+                  <el-icon><Platform /></el-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm text-blue-100/80">路由器</p>
+                  <p class="text-lg font-semibold">OpenWrt / Merlín</p>
+                </div>
+                <el-button type="primary" plain size="small" class="!border-white/30 !text-white !px-4" @click="$router.push('/docs/router')">配置</el-button>
+              </div>
+
+              <div class="download-card">
+                <div class="download-card__icon bg-amber-500/20 text-amber-200">
+                  <el-icon><Refresh /></el-icon>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm text-blue-100/80">一键导入</p>
+                  <p class="text-lg font-semibold">订阅 / Clash / Surge</p>
+                </div>
+                <el-button type="primary" plain size="small" class="!border-white/30 !text-white !px-4" @click="$router.push('/docs/import')">查看</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="max-w-5xl mx-auto mt-24 px-4">
+          <div class="text-center mb-10">
+            <p class="text-sm font-semibold text-blue-600">常见问题</p>
+            <h2 class="text-3xl font-bold text-gray-900 mt-2">开始之前，你可能想了解</h2>
+            <p class="text-gray-500 mt-3">最关心的延迟、隐私、售后等问题，这里都有答案。</p>
+          </div>
+        <div class="space-y-4">
+          <div class="faq-item">
+            <div class="faq-item__question">试用期有流量或速度限制吗？</div>
+            <p class="faq-item__answer">新注册用户可获得 3 天全速试用，无限流量，体验与正式套餐一致。期间随时可以在控制台查看节点实时延迟。</p>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__question">如何保障隐私安全？</div>
+            <p class="faq-item__answer">我们执行零日志政策，并支持 AES-256 与 TLS 1.3 双重加密，所有客户端均开启 Kill Switch 防止意外断线泄露真实 IP。</p>
+          </div>
+          <div class="faq-item">
+            <div class="faq-item__question">售后支持的响应时间是多久？</div>
+            <p class="faq-item__answer">7x24 在线工单与 Telegram 群组，平均 5 分钟内响应，复杂问题可由工程师远程协助排查，保障跨平台一致体验。</p>
+          </div>
+        </div>
+      </div>
+
     </main>
     
     <!-- Charity & Student Section -->
@@ -389,4 +481,30 @@ import { Monitor, Platform, Iphone, Cellphone, TrendCharts, DataAnalysis, Finish
 .rating {
   @apply ml-auto px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 text-xs font-semibold border border-yellow-100;
 }
+
+
+.download-tag {
+  @apply px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-blue-100 backdrop-blur;
+}
+
+.download-card {
+  @apply bg-white/5 border border-white/10 rounded-2xl p-4 flex items-center gap-3 shadow-sm backdrop-blur hover:border-white/30 transition;
+}
+
+.download-card__icon {
+  @apply w-12 h-12 rounded-xl flex items-center justify-center text-xl;
+}
+
+.faq-item {
+  @apply bg-white border border-gray-100 rounded-2xl p-6 shadow-sm;
+}
+
+.faq-item__question {
+  @apply text-lg font-semibold text-gray-900 mb-2;
+}
+
+.faq-item__answer {
+  @apply text-sm text-gray-600 leading-relaxed;
+}
+
 </style>
