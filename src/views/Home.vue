@@ -54,14 +54,49 @@
         <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
           永连加速器为您提供全球高速节点，解锁流媒体，加速游戏，保护您的隐私安全。稳定、快速、易用。
         </p>
-        
-        <div class="flex flex-col items-center gap-6 mt-8">
-          <el-button type="primary" size="large" class="!px-12 !py-7 !text-xl !rounded-full shadow-lg shadow-blue-500/30 transition-transform hover:-translate-y-1 animate-breath" @click="$router.push('/register')">
-            立即开始免费试用
-          </el-button>
-          
+
+        <div class="flex flex-col items-center gap-8 mt-10">
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <el-button type="primary" size="large" class="!px-12 !py-7 !text-xl !rounded-full shadow-lg shadow-blue-500/30 transition-transform hover:-translate-y-1 animate-breath" @click="$router.push('/register')">
+              立即开始免费试用
+            </el-button>
+            <el-button size="large" class="!px-10 !py-6 !text-lg !rounded-full border-2 border-blue-100 hover:border-blue-300" @click="$router.push('/dashboard')">
+              查看节点概况
+            </el-button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl">
+            <div class="p-4 rounded-2xl bg-white/70 border border-gray-100 shadow-sm flex items-center gap-3 text-left">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                <el-icon><TrendCharts /></el-icon>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">平均延迟</p>
+                <p class="text-lg font-bold text-gray-900">35 ms</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/70 border border-gray-100 shadow-sm flex items-center gap-3 text-left">
+              <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                <el-icon><DataAnalysis /></el-icon>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">全球节点</p>
+                <p class="text-lg font-bold text-gray-900">30+ 地区</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/70 border border-gray-100 shadow-sm flex items-center gap-3 text-left">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <el-icon><Finished /></el-icon>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">可用率</p>
+                <p class="text-lg font-bold text-gray-900">99.99%</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Platform Support -->
-          <div class="flex items-center gap-6 text-gray-400 text-sm font-medium">
+          <div class="flex flex-wrap items-center justify-center gap-6 text-gray-400 text-sm font-medium">
              <div class="flex items-center gap-1.5"><el-icon><Monitor /></el-icon> Windows</div>
              <div class="flex items-center gap-1.5"><el-icon><Platform /></el-icon> macOS</div>
              <div class="flex items-center gap-1.5"><el-icon><Iphone /></el-icon> iOS</div>
@@ -70,8 +105,39 @@
         </div>
       </div>
 
+      <!-- Key Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-16 px-4">
+        <div class="p-6 rounded-3xl bg-white/80 border border-gray-100 shadow-sm text-left flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600">
+            <el-icon><Refresh /></el-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">智能选路</p>
+            <p class="text-lg font-semibold text-gray-900">动态选择最优线路，保证高峰期也能稳定。</p>
+          </div>
+        </div>
+        <div class="p-6 rounded-3xl bg-white/80 border border-gray-100 shadow-sm text-left flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600">
+            <el-icon><Timer /></el-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">秒级响应</p>
+            <p class="text-lg font-semibold text-gray-900">全平台一键连接，排障支持平均 5 分钟内响应。</p>
+          </div>
+        </div>
+        <div class="p-6 rounded-3xl bg-white/80 border border-gray-100 shadow-sm text-left flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+            <el-icon><Lock /></el-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">安全托底</p>
+            <p class="text-lg font-semibold text-gray-900">双重加密与自动 Kill Switch，网络异常时自动保护隐私。</p>
+          </div>
+        </div>
+      </div>
+
       <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-24 px-4 text-left">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16 px-4 text-left">
         <!-- Feature 1: Speed -->
         <div class="p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all border border-gray-100 group">
           <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 text-blue-600 group-hover:scale-110 transition-transform duration-300">
@@ -103,6 +169,93 @@
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">全球覆盖</h3>
           <p class="text-gray-500">优质节点遍布全球 30+ 国家和地区，原生 IP 解锁 Netflix、Disney+ 等流媒体内容，畅游无界。</p>
+        </div>
+      </div>
+
+      <!-- Quick Start Section -->
+      <div class="max-w-6xl mx-auto mt-24 px-4">
+        <div class="bg-gradient-to-r from-blue-50 via-white to-purple-50 rounded-[2rem] border border-blue-100/60 p-10 md:p-14 shadow-sm">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div class="text-left space-y-4 max-w-2xl">
+              <p class="text-sm font-semibold text-blue-600 inline-flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                3 步即可完成加速
+              </p>
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">无需折腾，开箱即用</h2>
+              <p class="text-gray-500 text-lg">
+                全自动化配置向导与智能节点推荐，帮您秒连最优线路。支持客户端一键导入配置，适合新手与高阶用户。
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <span class="px-3 py-1 rounded-full bg-white border border-blue-100 text-sm text-blue-600">全平台客户端</span>
+                <span class="px-3 py-1 rounded-full bg-white border border-purple-100 text-sm text-purple-600">智能选线</span>
+                <span class="px-3 py-1 rounded-full bg-white border border-emerald-100 text-sm text-emerald-600">零日志</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
+              <div class="quick-step">
+                <div class="quick-step__badge">1</div>
+                <h3 class="quick-step__title">注册账户</h3>
+                <p class="quick-step__desc">不到 1 分钟完成邮箱注册，领取 3 天试用。</p>
+              </div>
+              <div class="quick-step">
+                <div class="quick-step__badge">2</div>
+                <h3 class="quick-step__title">下载客户端</h3>
+                <p class="quick-step__desc">支持 Windows、macOS、iOS、Android，一键导入配置。</p>
+              </div>
+              <div class="quick-step">
+                <div class="quick-step__badge">3</div>
+                <h3 class="quick-step__title">一键连接</h3>
+                <p class="quick-step__desc">智能推荐最优节点，流媒体与游戏全程低延迟。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="max-w-6xl mx-auto mt-24 px-4">
+        <div class="text-center mb-12">
+          <p class="text-sm font-semibold text-purple-600">真实用户反馈</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">高分口碑，体验有保障</h2>
+          <p class="text-gray-500 mt-3">专业玩家、远程办公与留学生的共同选择，帮助您保持稳定低延迟连接。</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="testimonial-card">
+            <div class="testimonial-card__header">
+              <div class="avatar">A</div>
+              <div>
+                <p class="font-semibold text-gray-900">阿成 · 电竞主播</p>
+                <p class="text-xs text-gray-500">常用日本、香港节点</p>
+              </div>
+              <span class="rating">4.9 ★</span>
+            </div>
+            <p class="testimonial-card__content">高峰期打游戏延迟也很稳，掉线率几乎没有，直播推流一路畅通。</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-card__header">
+              <div class="avatar">Z</div>
+              <div>
+                <p class="font-semibold text-gray-900">Zoe · 留学生</p>
+                <p class="text-xs text-gray-500">Netflix / Disney+ 解锁</p>
+              </div>
+              <span class="rating">5.0 ★</span>
+            </div>
+            <p class="testimonial-card__content">原生 IP 流媒体全部解锁，速度比我之前用的快太多，看片子再也不卡了。</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-card__header">
+              <div class="avatar">L</div>
+              <div>
+                <p class="font-semibold text-gray-900">Leo · 远程办公</p>
+                <p class="text-xs text-gray-500">跨区协作 / 会议</p>
+              </div>
+              <span class="rating">4.8 ★</span>
+            </div>
+            <p class="testimonial-card__content">Zoom 会议画质稳定，传文件速度快，客服响应也很及时。</p>
+          </div>
         </div>
       </div>
     </main>
@@ -175,7 +328,7 @@
 </template>
 
 <script setup lang="ts">
-import { Monitor, Platform, Iphone, Cellphone } from '@element-plus/icons-vue';
+import { Monitor, Platform, Iphone, Cellphone, TrendCharts, DataAnalysis, Finished, Refresh, Timer, Lock } from '@element-plus/icons-vue';
 </script>
 
 <style scoped>
@@ -199,5 +352,41 @@ import { Monitor, Platform, Iphone, Cellphone } from '@element-plus/icons-vue';
 }
 .animate-breath {
   animation: breath 2s infinite ease-in-out;
+}
+
+.quick-step {
+  @apply bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-full text-left;
+}
+
+.quick-step__badge {
+  @apply w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-semibold mb-4;
+}
+
+.quick-step__title {
+  @apply text-lg font-semibold text-gray-900 mb-2;
+}
+
+.quick-step__desc {
+  @apply text-sm text-gray-500 leading-relaxed;
+}
+
+.testimonial-card {
+  @apply bg-white border border-gray-100 rounded-2xl p-6 shadow-sm h-full text-left flex flex-col gap-4 transition duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+.testimonial-card__header {
+  @apply flex items-center gap-4;
+}
+
+.testimonial-card__content {
+  @apply text-gray-600 leading-relaxed text-sm;
+}
+
+.avatar {
+  @apply w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-semibold;
+}
+
+.rating {
+  @apply ml-auto px-3 py-1 rounded-full bg-yellow-50 text-yellow-600 text-xs font-semibold border border-yellow-100;
 }
 </style>
