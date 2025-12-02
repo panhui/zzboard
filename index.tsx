@@ -1,0 +1,1 @@
+// Removed. Used src/main.ts for Vue.

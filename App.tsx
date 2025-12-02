@@ -1,0 +1,1 @@
+// Removed. Use src/App.vue.

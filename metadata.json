@@ -1,0 +1,5 @@
+{
+  "name": "yonglian",
+  "description": "A mobile-first web client for Xboard VPN panels. View stats, manage subscriptions, and browse server nodes with a modern dark-mode UI.",
+  "requestFramePermissions": []
+}

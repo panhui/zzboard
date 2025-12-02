@@ -1,0 +1,38 @@
+{
+  "name": "yonglian-accelerator",
+  "version": "1.0.3",
+  "description": "永连加速器客户端前端 - Release 1.0.3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.0",
+    "pinia": "^2.1.0",
+    "element-plus": "^2.6.0",
+    "@element-plus/icons-vue": "^2.3.0",
+    "@vueuse/core": "^10.9.0",
+    "axios": "^1.6.0",
+    "vue-i18n": "^9.9.0",
+    "qrcode": "^1.5.3",
+    "unplugin-auto-import": "^0.17.0",
+    "unplugin-vue-components": "^0.26.0",
+    "marked": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/marked": "^5.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.1.0",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "sass": "^1.70.0",
+    "typescript": "^5.2.0",
+    "vue-tsc": "^2.0.0"
+  }
+}
